@@ -1,1 +1,1 @@
-web: flask db upgrade; ecodroid:app
+web: flask db upgrade;
