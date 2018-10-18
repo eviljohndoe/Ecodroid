@@ -12,7 +12,6 @@ Flask-WTF==0.14.2
 itsdangerous==0.24
 Jinja2==2.10
 libusb1==1.6.5
-M2Crypto==0.30.1
 Mako==1.0.7
 MarkupSafe==1.0
 python-dateutil==2.7.3
