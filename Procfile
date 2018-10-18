@@ -1,1 +1,1 @@
-web: flask db upgrade; flask compile; gunicorn ecodroid:app
+web: flask db upgrade; ecodroid:app
