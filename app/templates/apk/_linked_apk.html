@@ -1,0 +1,32 @@
+{% if apks %}
+    <table id="apk" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Package</th>
+                <th scope="col">File</th>
+                <th scope="col">android version code</th>
+                <th scope="col">android version name</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for apk in apks %}
+            <tr>
+                <td>{{ apk.package_name }}</td>
+                <td>{{ apk.filename }}</td>
+                <td>{{ apk.version_code }}</td>
+                <td>{{ apk.version_name }}</td>
+                <td>
+                    <a href="{{ url_for('project.delete_apk', apk_id=apk.id, project_id=project.id) }}">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div>
+        <p class="text-muted">No applications linked</p>
+    </div>
+{% endif %}

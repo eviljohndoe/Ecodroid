@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    {# DISPLAY ALL CONNECTED DEVICE #}
+    <div class="page-header">
+		<h1>Device plugged in</h1>
+	</div>
+    {% include 'device/_connected.html' %}
+
+    {# DISPLAY ALL REGISTRED DEVICE #}
+    <div class="page-header">
+		<h1>Registered Device</h1>
+	</div>
+    {% if registered %}
+    <table id="all_devices" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">SERIAL ADB</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">Model</th>
+                <th scope="col">IMEI</th>
+                <th scope="col">Project</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in registered %}
+            <tr>
+                <th scope="row">{{ device.id }}</th>
+                <td>{{ device.adb_sn }}</td>
+                <td>{{ device.constructor }}</td>
+                <td>{{ device.model }}</td>
+                <td>{{ device.imei }}</td>
+                <td>{{ device.project().name }}</td>
+                <td>{{ device.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div>
+        <p class="text-muted">No registered devices</p>
+    </div>
+    {% endif %}
+{% endblock %}

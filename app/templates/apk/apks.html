@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class="page-header">
+		<h1>Applications</h1>
+	</div>
+
+    <!-- APK -->
+    <div class="container-fluid">
+        <form action="" method="POST" enctype="multipart/form-data" id="apks">
+            <fieldset>
+                <input value = "apk" type="hidden" name="form_id">
+                <div class="form-group">
+                    <div class="input-group input-apk">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default btn-danger btn-choose" type="button">
+                                Choose
+                            </button>
+                        </span>
+                        <input type="text" class="form-control" placeholder="add apks" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-reset" type="button">
+                                Reset
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+        {% include 'progress_bar.html' %}
+        <hr>
+    {% include 'apk/_apk.html' %}
+    </div>
+
+{% endblock %}

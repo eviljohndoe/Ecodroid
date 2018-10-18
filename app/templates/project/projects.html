@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <div id="editProjectDialog" class="modal fade" tabindex=-1 role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    {# ADD PROJECT #}
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+    <div class="page-header">
+		<h1>Projects</h1>
+	</div>
+    {# DISPLAY ALL Projects #}
+    {% if projects %}
+    <table id="project" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Project name</th>
+                <th scope="col">Configured Devices</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <th scope="row">{{ project.id }}</th>
+                <td><a href="{{ url_for('project.project', id=project.id) }}">{{ project.name.upper() }}</a></td>
+                <td>{{ project.devices.count() }}</td>
+                <td><a href="javascript:edit({{ project.id }})"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td>
+                    <a href="{{ url_for('project.delete', id=project.id) }}">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div>
+        <p class="text-muted">No projects</p>
+    </div>
+    {% endif %}
+{% endblock %}

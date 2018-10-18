@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class="page-header">
+		<h1>{{ title }}</h1>
+	</div>
+    <div class="page-header">
+        <h1><small>Configuration</small></h1>
+    </div>
+    <!-- APK -->
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> applications </strong></h3>
+            {% if all_apks %}
+                {% if not_linked_apks %}
+                <form action="" method="POST" id="link_apks" name="link_apks">
+                    <fieldset>
+                        <input value="applications" type="hidden" name="form_id">
+                        <input value="{{ project.id }}" type="hidden" name="project_id">
+                        <div class="form-group">
+                            <label for="SelectApk">Select Applications</label>
+                            <select multiple class="selectpicker form-control" name="apk" id="SelectApk">
+                                {% for apk in not_linked_apks %}
+                                <option data-subtext="{{ apk.filename }}">{{ apk.package_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button id="submit" type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate hide"></span>
+                                Submit
+                            </button>
+                        </div>
+                    </fieldset>
+                </form>
+                {% else %}
+                <div>
+                    <p class="text-muted">All applications are linked to {{ project.name }}</p>
+                </div>
+                {% endif %}
+                {% include 'apk/_linked_apk.html' %}
+            {% else %}
+                <a href="{{ url_for('apk.applications') }}">Add applications</a>
+            {% endif %}
+        </div>
+    </div>
+    <!-- END APK -->
+    <!-- WALLPAPER -->
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> wallpaper </strong></h3>
+            <form action="" method="POST" enctype="multipart/form-data" id="wallpaper" name="wallpaper">
+                <fieldset>
+                    <input value = "wallpaper" type="hidden" name="form_id">
+                    <input value="{{ project.id }}" type="hidden" name="project_id">
+                    <div class="form-group">
+                        <div class="input-group input-wallpaper">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-danger btn-choose" type="button">
+                                    Choose
+                                </button>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Choose wallpaper" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning btn-reset" type="button">
+                                    Reset
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </fieldset>
+            </form>
+            {% include 'progress_bar.html' %}
+            {% if wallpapers %}
+            <div id="wall_gallery" class="row">
+                {% for wallpaper in wallpapers %}
+                <div class="col-xs-3">
+                    <a href="{{ url_for('static', filename=wallpaper) }}" class="thumbnail" data-fancybox="images">
+                        <img src="{{ url_for('static', filename=wallpaper) }}" />
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div>
+                <p class="text-muted">No wallpapers loaded</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- END WALLPAPER -->
+    <!-- SETTINGS -->
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> settings </strong></h3>
+        </div>
+    </div>
+    <!-- END SETTINGS -->
+    {% if connected %}
+        <a href="{{ url_for('project.configure', id=project.id) }}">configure</a>
+    {% else %}
+        <div>
+            <p class="text-muted">connect devices to start the configuration</p>
+        </div>
+    {% endif %}
+
+
+    <div class="page-header">
+        <h1><small>Device Plugged in</small></h1>
+    </div>
+    {% include 'device/_connected.html' %}
+{% endblock %}

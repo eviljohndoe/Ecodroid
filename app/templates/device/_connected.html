@@ -1,0 +1,32 @@
+{% if connected %}
+    <table id="plugged" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">SERIAL ADB</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">Model</th>
+                <th scope="col">IMEI</th>
+                <th scope="col">Project</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in connected %}
+            <tr>
+                <th scope="row">{{ device.id }}</th>
+                <td>{{ device.adb_sn }}</td>
+                <td>{{ device.constructor }}</td>
+                <td>{{ device.model }}</td>
+                <td>{{ device.imei }}</td>
+                <td>{{ device.project().name }}</td>
+                <td>{{ device.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div>
+        <p class="text-muted">No devices plugged in</p>
+    </div>
+{% endif %}

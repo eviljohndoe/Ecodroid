@@ -1,0 +1,77 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block head %}
+    {{ super() }}
+    {{ JSGlue.include() }}
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/spinner.css') }}">
+    <!-- END CUSTOM CSS -->
+    <!-- DATATABLE -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <!-- END DATATABLE -->
+    <!-- BOOTSTRAP SELECT -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <!-- END BOOTSTRAP SELECT -->
+    <!-- FANCYBOX -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
+    <!-- END FANCYBOX -->
+{% endblock %}
+
+{% block title %}
+    {% if title %}{{ title }} - EcoDroid2 {% else %} Welcome to EcoDroid2 {% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for('main.index') }}">Ecodroid 2</a>
+            </div>
+            <ul class="nav navbar-nav">
+                {% for item in nav.top %}
+                    <li class="{{ 'active' if item.is_active else '' }}">
+                        <a href="{{ item.url }}">{{ item.label }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+    <!-- DATATABLES -->
+    <script type="text/javascript"
+            charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <!-- END DATATABLES -->
+    <!-- BOOTSTRAP SELECT -->
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js">
+    </script>
+    <!-- END BOOTSTRAP SELECT -->
+    <!-- FANCYBOX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <!-- END FANCYBOX -->
+{% endblock %}
