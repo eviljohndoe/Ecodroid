@@ -213,8 +213,8 @@ class APK(object):
                     self.valid_apk = True
 
             re_cert = re.compile(r'meta-inf(/|\\).*\.(rsa|dsa)')
-            if re_cert.match(i.lower()):
-                self.parse_cert(i)
+            # if re_cert.match(i.lower()):
+            #     self.parse_cert(i)
 
         self.get_files_types()
 
