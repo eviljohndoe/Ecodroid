@@ -1,1 +1,1 @@
-web: gunicorn app:ecodroid
+web: gunicorn app:app
