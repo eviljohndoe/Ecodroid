@@ -1,5 +1,4 @@
 from app import db, d as Dev
-from app.models import DeviceModel
 
 
 def configure(project, sn):

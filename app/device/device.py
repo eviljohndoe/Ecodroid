@@ -1,5 +1,3 @@
-from flask import current_app
-#from app.flask_helpers import Device as Dev
 from app import db, d as Dev
 from app.models import DeviceModel
 

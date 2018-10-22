@@ -1,13 +1,12 @@
-from flask import render_template, redirect, url_for, flash, request, jsonify, current_app
+import threading
+from flask import render_template, redirect, url_for, flash, request, jsonify
 from app import db, d as Device
 from app.project import bp, _project
 from app.project._project import folder
 from app.device import device
 from app.models import Project, Apk
-from app.configuration import configure as conf, square, install_apks
+from app.configuration import install_apks
 from app.project.forms import ProjectForm, EditProjectForm
-from multiprocessing import Pool, Process
-import threading
 
 
 @bp.route('/projects', methods=["GET", "POST"])

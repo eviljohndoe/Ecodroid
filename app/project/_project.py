@@ -1,8 +1,8 @@
+import os
+from glob import glob
 from flask import current_app
 from app import db
 from app.models import Apk, Project
-import os
-from glob import glob
 from app.flask_helpers.folder import Folder
 from app.flask_helpers.upload import Upload
 
